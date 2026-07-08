@@ -2,29 +2,44 @@ let currentMode = "before";
 let currentFormat = "micro";
 
 
+
 const checklists = {
+
 
     micro: {
 
+
         title: "Микромагия",
+
 
         categories: [
 
+
             {
+
                 name: "Одежда",
+
                 items: [
+
                     "Рубашка / футболка",
                     "Пиджак",
                     "Брюки",
                     "Туфли",
                     "Носки",
                     "Браслеты и кольца"
+
                 ]
+
             },
 
+
+
             {
+
                 name: "Микрофон",
+
                 items: [
+
                     "Зарядить батарейки",
                     "Передатчик",
                     "База",
@@ -32,12 +47,19 @@ const checklists = {
                     "Кабель XLR",
                     "Блок питания",
                     "Флешка"
+
                 ]
+
             },
 
+
+
             {
+
                 name: "Реквизит",
+
                 items: [
+
                     "Чемодан",
                     "Штатив",
                     "Колоды обычные",
@@ -46,87 +68,140 @@ const checklists = {
                     "MentalDie",
                     "Симпсоны",
                     "Leviosa"
+
                 ]
+
             }
+
 
         ]
 
+
     }
+
 
 };
 
 
 
-// ----------------------------
-// Экраны
-// ----------------------------
 
 
-function showScreen(id){
 
-    document.querySelectorAll(".screen")
-    .forEach(screen=>{
+
+
+// --------------------------
+// Навигация
+// --------------------------
+
+
+
+function showScreen(id) {
+
+
+    document
+    .querySelectorAll(".screen")
+    .forEach(screen => {
+
         screen.classList.remove("active");
+
     });
 
 
-    document.getElementById(id)
+
+    document
+    .getElementById(id)
     .classList.add("active");
+
 
 }
 
 
 
-function openMode(mode){
+
+
+
+function openMode(mode) {
+
 
     currentMode = mode;
 
 
-    document.getElementById("mode-title").innerText =
+
+    document
+    .getElementById("mode-title")
+    .innerText =
+
         mode === "before"
+
         ? "На выступление"
+
         : "После выступления";
+
 
 
     showScreen("format-screen");
 
+
 }
 
 
 
-function goHome(){
+
+
+
+function goHome() {
+
 
     showScreen("home-screen");
 
+
 }
 
 
 
 
-// ----------------------------
+
+
+
+
+
+// --------------------------
 // Чеклист
-// ----------------------------
+// --------------------------
 
 
-function openChecklist(format){
 
-    if(!checklists[format]){
+function openChecklist(format) {
 
-        alert("Этот формат пока в разработке");
+
+
+    if (!checklists[format]) {
+
+
+        alert(
+            "Этот формат пока в разработке"
+        );
+
 
         return;
 
     }
 
 
+
     currentFormat = format;
 
 
-    document.getElementById("format-title").innerText =
+
+    document
+    .getElementById("format-title")
+    .innerText =
         checklists[format].title;
 
 
+
     renderChecklist();
+
 
 
     showScreen("checklist-screen");
@@ -136,85 +211,153 @@ function openChecklist(format){
 
 
 
-function getStorageKey(){
 
-    return `magic_${currentMode}_${currentFormat}`;
+
+
+
+function getStorageKey() {
+
+
+    return (
+
+        "magic_" +
+
+        currentMode +
+
+        "_" +
+
+        currentFormat
+
+    );
+
 
 }
 
 
 
 
-function renderChecklist(){
+
+
+
+
+function renderChecklist() {
+
+
 
     const container =
-        document.getElementById("checklist-container");
+
+        document
+        .getElementById(
+            "checklist-container"
+        );
+
 
 
     container.innerHTML = "";
 
 
+
     const saved =
+
         JSON.parse(
-            localStorage.getItem(getStorageKey())
+
+            localStorage.getItem(
+                getStorageKey()
+            )
+
         ) || {};
+
+
+
 
 
 
     checklists[currentFormat]
     .categories
-    .forEach((category)=>{
+    .forEach(category => {
+
 
 
         const block =
-            document.createElement("div");
+            document.createElement(
+                "div"
+            );
 
-        block.className = "category";
+
+        block.className =
+            "category";
+
+
 
 
 
         const title =
-            document.createElement("div");
+            document.createElement(
+                "div"
+            );
 
 
-        title.className = "category-title";
+        title.className =
+            "category-title";
+
+
 
         title.innerText =
             "▼ " + category.name;
 
 
 
+
+
+
         const items =
-            document.createElement("div");
+            document.createElement(
+                "div"
+            );
 
-        items.className = "category-items";
+
+        items.className =
+            "category-items";
 
 
 
-        category.items.forEach(item=>{
+
+
+
+
+        category.items
+        .forEach(item => {
+
 
 
             const row =
-                document.createElement("label");
+                document.createElement(
+                    "label"
+                );
 
 
-            row.className = "item";
 
-
-            const checked =
-                saved[item] ? "checked" : "";
+            row.className =
+                "item";
 
 
 
             row.innerHTML = `
 
-                <input 
+
+                <input
+
                     type="checkbox"
-                    ${checked}
+
                     data-item="${item}"
+
+                    ${saved[item] ? "checked" : ""}
+
                 >
 
+
                 <span>${item}</span>
+
 
             `;
 
@@ -223,18 +366,29 @@ function renderChecklist(){
             items.appendChild(row);
 
 
+
         });
 
 
 
-        title.onclick = ()=>{
+
+
+
+        title.onclick = () => {
+
 
             items.style.display =
+
                 items.style.display === "none"
+
                 ? "block"
+
                 : "none";
 
+
         };
+
+
 
 
 
@@ -243,98 +397,349 @@ function renderChecklist(){
         block.appendChild(items);
 
 
+
         container.appendChild(block);
+
 
 
     });
 
 
+
+
     updateProgress();
+
 
 }
 
 
 
-// ----------------------------
-// Сохранение
-// ----------------------------
 
 
-document.addEventListener(
+
+
+
+
+// --------------------------
+// Сохранение галочек
+// --------------------------
+
+
+
+document
+.addEventListener(
 "change",
-function(e){
+event => {
 
 
-    if(
-        e.target.matches(
+
+    if (
+
+        event.target.matches(
+
         '#checklist-container input[type="checkbox"]'
+
         )
-    ){
+
+    ) {
+
 
 
         const saved =
+
             JSON.parse(
-                localStorage.getItem(getStorageKey())
+
+                localStorage.getItem(
+                    getStorageKey()
+                )
+
             ) || {};
 
 
 
-        saved[e.target.dataset.item] =
-            e.target.checked;
+
+
+        saved[event.target.dataset.item] =
+
+            event.target.checked;
+
+
 
 
 
         localStorage.setItem(
+
             getStorageKey(),
+
             JSON.stringify(saved)
+
         );
+
+
 
 
 
         updateProgress();
 
+
     }
 
-});
+
+}
+
+);
 
 
 
 
 
-function updateProgress(){
+
+
+
+
+// --------------------------
+// Прогресс
+// --------------------------
+
+
+
+function updateProgress() {
+
 
 
     const checks =
-        document.querySelectorAll(
+
+        document
+        .querySelectorAll(
+
         '#checklist-container input[type="checkbox"]'
+
         );
+
 
 
     let done = 0;
 
 
-    checks.forEach(check=>{
+
+    checks.forEach(check => {
+
+
 
         if(check.checked){
+
             done++;
+
         }
+
 
     });
 
 
 
-    document.getElementById("progress")
+
+    document
+    .getElementById("progress")
     .innerText =
-    `${done} / ${checks.length}`;
+
+
+        `${done} / ${checks.length}`;
+
+
 
 }
 
 
 
 
-// ----------------------------
-// Старт
-// ----------------------------
 
+
+
+
+
+// --------------------------
+// Кнопка ГОТОВО
+// --------------------------
+
+
+
+document
+.getElementById("finish-button")
+.addEventListener(
+"click",
+finishChecklist
+);
+
+
+
+
+
+
+function finishChecklist() {
+
+
+
+    const checks =
+
+        document
+        .querySelectorAll(
+
+        '#checklist-container input[type="checkbox"]'
+
+        );
+
+
+
+    let missed = [];
+
+
+
+    checks.forEach(check => {
+
+
+
+        if(!check.checked) {
+
+
+            missed.push(
+                check.dataset.item
+            );
+
+
+        }
+
+
+    });
+
+
+
+
+
+    if(missed.length > 0) {
+
+
+
+        showWarning(missed);
+
+
+
+    }
+
+    else {
+
+
+
+        showScreen(
+            "success-screen"
+        );
+
+
+    }
+
+
+}
+
+
+
+
+
+
+
+
+function showWarning(items) {
+
+
+
+    const old =
+
+        document
+        .getElementById(
+            "warning"
+        );
+
+
+
+    if(old){
+
+        old.remove();
+
+    }
+
+
+
+
+
+    const warning =
+
+        document
+        .createElement(
+            "div"
+        );
+
+
+
+    warning.id =
+        "warning";
+
+
+
+
+
+    warning.innerHTML = `
+
+
+        ⚠️ Ты что-то забыл:
+
+
+        <br><br>
+
+
+        ${
+
+            items
+            .map(
+                item =>
+                "• " + item
+            )
+            .join("<br>")
+
+        }
+
+
+    `;
+
+
+
+
+
+    document
+    .body
+    .appendChild(warning);
+
+
+
+
+
+    setTimeout(() => {
+
+
+        warning.remove();
+
+
+    },5000);
+
+
+
+}
+
+
+
+
+
+
+
+
+
+// Старт
 
 showScreen("home-screen");
