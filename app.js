@@ -107,14 +107,17 @@ function renderChecklist() {
         JSON.parse(localStorage.getItem(getStorageKey())) || {};
 
 
-    checklists[currentFormat].categories.forEach(category => {
+    checklists[currentFormat].categories.forEach((category, index) => {
 
         const block = document.createElement("div");
         block.className = "category";
+        block.dataset.category = index;
+
 
         const title = document.createElement("div");
         title.className = "category-title";
         title.innerText = "▼ " + category.name;
+
 
         const items = document.createElement("div");
         items.className = "category-items";
@@ -137,13 +140,13 @@ function renderChecklist() {
                 <input 
                     type="checkbox"
                     data-item="${item}"
+                    data-category="${index}"
                     ${saved[item] ? "checked" : ""}
                 >
                 <span>${item}</span>
             `;
 
             items.appendChild(row);
-
         });
 
 
@@ -156,7 +159,9 @@ function renderChecklist() {
 
 
     updateProgress();
+    updateCategories();
 }
+
 
 
 
@@ -167,18 +172,24 @@ document.addEventListener("change", event => {
         const saved =
             JSON.parse(localStorage.getItem(getStorageKey())) || {};
 
+
         saved[event.target.dataset.item] =
             event.target.checked;
+
 
         localStorage.setItem(
             getStorageKey(),
             JSON.stringify(saved)
         );
 
+
         updateProgress();
+        updateCategories();
     }
 
 });
+
+
 
 
 
@@ -189,7 +200,9 @@ function updateProgress() {
             "#checklist-container input"
         );
 
+
     let completed = 0;
+
 
     checks.forEach(check => {
 
@@ -207,7 +220,53 @@ function updateProgress() {
 
 
 
-// Отметить всё
+
+
+// Проверка категорий
+
+function updateCategories() {
+
+    const categories =
+        document.querySelectorAll(".category");
+
+
+    categories.forEach(category => {
+
+        const checks =
+            category.querySelectorAll("input");
+
+
+        let allChecked = true;
+
+
+        checks.forEach(check => {
+
+            if (!check.checked) {
+                allChecked = false;
+            }
+
+        });
+
+
+        if (allChecked) {
+
+            category.classList.add("completed");
+
+        } else {
+
+            category.classList.remove("completed");
+
+        }
+
+    });
+
+}
+
+
+
+
+
+
 
 function checkAll() {
 
@@ -215,6 +274,7 @@ function checkAll() {
         document.querySelectorAll(
             "#checklist-container input"
         );
+
 
     const saved = {};
 
@@ -235,13 +295,16 @@ function checkAll() {
 
 
     updateProgress();
+    updateCategories();
     clearWarning();
+
 }
 
 
 
 
-// Сбросить всё
+
+
 
 function resetAll() {
 
@@ -264,8 +327,11 @@ function resetAll() {
 
 
     updateProgress();
+    updateCategories();
 
 }
+
+
 
 
 
@@ -278,13 +344,18 @@ function finishChecklist() {
             "#checklist-container input"
         );
 
+
     const missed = [];
 
 
     checks.forEach(check => {
 
         if (!check.checked) {
-            missed.push(check.dataset.item);
+
+            missed.push(
+                check.dataset.item
+            );
+
         }
 
     });
@@ -295,6 +366,7 @@ function finishChecklist() {
         showWarning(missed);
 
         return;
+
     }
 
 
@@ -309,6 +381,8 @@ function finishChecklist() {
     showScreen("success-screen");
 
 }
+
+
 
 
 
@@ -332,6 +406,7 @@ function showWarning(items) {
 
 
 
+
 function clearWarning() {
 
     const warning =
@@ -339,6 +414,7 @@ function clearWarning() {
 
 
     warning.style.display = "none";
+
     warning.innerHTML = "";
 
 }
