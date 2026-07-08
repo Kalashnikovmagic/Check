@@ -1,128 +1,279 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
+
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 
     <title>Magic Checklist</title>
 
+
     <link rel="stylesheet" href="style.css">
+
 
     <link rel="manifest" href="manifest.json">
 
+
     <meta name="theme-color" content="#111827">
+
     <meta name="apple-mobile-web-app-capable" content="yes">
+
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
-    <meta name="apple-mobile-web-app-title" content="Magic">
+
+    <meta name="apple-mobile-web-app-title" content="Magic Checklist">
+
 
 </head>
 
+
 <body>
+
 
 <div id="app">
 
+
     <!-- Главный экран -->
+
     <section id="home-screen" class="screen active">
 
-        <button class="main-button performance-button" onclick="openMode('before')">
+
+        <button 
+            class="main-button performance-button"
+            onclick="openMode('before')">
+
             На выступление
+
         </button>
 
-        <button class="main-button after-button" onclick="openMode('after')">
+
+
+        <button 
+            class="main-button after-button"
+            onclick="openMode('after')">
+
             После выступления
+
         </button>
+
 
     </section>
 
 
-    <!-- Выбор режима -->
+
+
+
+    <!-- Выбор формата -->
+
     <section id="format-screen" class="screen">
 
-        <button class="back-button" onclick="goHome()">
+
+        <button 
+            class="back-button"
+            onclick="goHome()">
+
             ← Назад
+
         </button>
+
+
 
         <h1 id="mode-title"></h1>
 
 
+
         <div class="format-list">
 
+
             <button onclick="openChecklist('micro')">
+
                 Микромагия
+
             </button>
+
+
 
             <button onclick="openChecklist('stage')">
+
                 Сцена
+
             </button>
+
+
 
             <button onclick="openChecklist('stagePlus')">
+
                 Сцена+
+
             </button>
+
+
 
             <button onclick="openChecklist('stageMicro')">
+
                 Сцена+микро
+
             </button>
 
+
         </div>
+
 
     </section>
 
 
+
+
+
+
     <!-- Чеклист -->
+
+
     <section id="checklist-screen" class="screen">
 
-        <button class="back-button" onclick="openMode(currentMode)">
+
+        <button 
+            class="back-button"
+            onclick="openMode(currentMode)">
+
             ← Назад
+
         </button>
+
 
 
         <h1 id="format-title"></h1>
 
 
+
         <div id="progress">
+
             0 / 0
+
         </div>
+
 
 
         <div id="checklist-container"></div>
 
 
-        <button id="finish-button">
+
+
+        <button 
+            id="finish-button">
+
             Готово
+
         </button>
+
 
 
     </section>
 
 
+
+
+
+
+
+    <!-- Экран успеха -->
+
+
+    <section id="success-screen" class="screen">
+
+
+        <div class="success-content">
+
+
+            <h1>
+
+                🎩 Отлично!
+
+            </h1>
+
+
+
+            <p>
+
+                Ты всё собрал.<br>
+                Ничего не забыл.
+
+            </p>
+
+
+
+            <button 
+                onclick="goHome()">
+
+                Вернуться на главный экран
+
+            </button>
+
+
+        </div>
+
+
+    </section>
+
+
+
 </div>
+
+
+
 
 
 <script src="app.js"></script>
 
 
-<!-- Регистрация PWA -->
+
+
 
 <script>
 
+
 if ("serviceWorker" in navigator) {
 
-    window.addEventListener("load", () => {
 
-        navigator.serviceWorker.register("service-worker.js")
-        .then(() => {
-            console.log("PWA готово");
-        })
-        .catch(error => {
-            console.log("Ошибка PWA:", error);
-        });
+    window.addEventListener(
+        "load",
+        () => {
 
-    });
+
+            navigator.serviceWorker
+            .register("service-worker.js")
+
+
+            .then(() => {
+
+                console.log("PWA запущено");
+
+            })
+
+
+            .catch(error => {
+
+                console.log(
+                    "Ошибка PWA:",
+                    error
+                );
+
+            });
+
+
+        }
+    );
+
 
 }
+
 
 </script>
 
 
+
+
 </body>
+
 </html>
