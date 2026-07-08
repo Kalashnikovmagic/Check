@@ -4,87 +4,158 @@
     padding: 0;
 }
 
+
 body {
-    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", Arial, sans-serif;
+
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "SF Pro Display",
+        Arial,
+        sans-serif;
+
     background: #f2f2f7;
+
     color: #111;
+
     height: 100vh;
+
     overflow: hidden;
+
 }
 
+
+
 #app {
+
     width: 100%;
+
     height: 100%;
+
 }
+
+
+
+
+
+/* Экраны */
 
 
 .screen {
+
     display: none;
+
     width: 100%;
+
     height: 100%;
+
     flex-direction: column;
+
 }
 
+
+
 .screen.active {
+
     display: flex;
+
 }
+
+
+
 
 
 /* Главный экран */
 
+
 #home-screen {
+
     display: none;
+
 }
 
+
+
 #home-screen.active {
+
     display: flex;
+
 }
+
+
+
 
 
 .main-button {
+
+
     width: 100%;
+
     height: 50%;
+
     border: none;
-    font-size: 32px;
-    font-weight: 700;
+
     color: white;
-    cursor: pointer;
+
+    font-size: 32px;
+
+    font-weight: 700;
+
 }
+
+
+
 
 
 .performance-button {
+
     background: #111827;
+
 }
+
 
 
 .after-button {
+
     background: #374151;
+
 }
 
 
 
-/* Кнопка назад */
+
+
+/* Назад */
+
 
 .back-button {
 
+
     margin: 20px;
+
     padding: 12px 18px;
 
-    border-radius: 14px;
+    border-radius: 16px;
+
     border: none;
 
     background: white;
 
     font-size: 18px;
-    text-align: left;
+
+    width: fit-content;
 
 }
 
 
 
+
+
 /* Заголовки */
 
+
 h1 {
+
 
     text-align: center;
 
@@ -92,24 +163,34 @@ h1 {
 
     margin: 10px 20px 25px;
 
+
 }
 
 
 
-/* Выбор формата */
+
+
+/* Форматы */
+
 
 .format-list {
 
+
     display: flex;
+
     flex-direction: column;
+
     gap: 15px;
 
     padding: 20px;
 
+
 }
 
 
+
 .format-list button {
+
 
     height: 75px;
 
@@ -123,42 +204,64 @@ h1 {
 
     font-weight: 600;
 
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    box-shadow:
+        0 5px 15px rgba(0,0,0,0.08);
+
 
 }
+
+
+
+
+
+
+
+/* Прогресс */
+
+
+#progress {
+
+
+    text-align: center;
+
+    font-size: 22px;
+
+    font-weight: 700;
+
+    margin-bottom: 15px;
+
+
+}
+
+
+
+
 
 
 
 /* Чеклист */
 
 
-#progress {
-
-    text-align: center;
-
-    font-size: 20px;
-
-    font-weight: 600;
-
-    margin-bottom: 15px;
-
-}
-
-
-
 #checklist-container {
+
 
     flex: 1;
 
     overflow-y: auto;
 
-    padding: 0 20px 120px;
+    padding:
+
+        0 20px 120px;
+
 
 }
 
 
 
+
+
 .category {
+
 
     background: white;
 
@@ -168,11 +271,15 @@ h1 {
 
     overflow: hidden;
 
+
 }
 
 
 
+
+
 .category-title {
+
 
     padding: 18px;
 
@@ -180,21 +287,28 @@ h1 {
 
     font-weight: 700;
 
-    cursor: pointer;
 
 }
+
+
 
 
 
 .category-items {
 
+
     padding: 0 18px 15px;
+
 
 }
 
 
 
+
+
+
 .item {
+
 
     display: flex;
 
@@ -206,45 +320,213 @@ h1 {
 
     font-size: 20px;
 
+
 }
+
+
 
 
 
 .item input {
 
-    width: 24px;
 
-    height: 24px;
+    width: 25px;
+
+    height: 25px;
+
 
 }
 
 
 
-/* Нижняя кнопка */
+
+
+
+
+/* Кнопка готово */
 
 
 #finish-button {
 
+
     position: fixed;
+
 
     bottom: 20px;
 
+
     left: 20px;
+
 
     right: 20px;
 
+
     height: 60px;
+
 
     border-radius: 20px;
 
+
     border: none;
+
 
     background: #111827;
 
+
     color: white;
+
 
     font-size: 22px;
 
+
     font-weight: 700;
+
+
+}
+
+
+
+
+
+
+
+/* Экран успеха */
+
+
+.success-content {
+
+
+    height: 100%;
+
+
+    display: flex;
+
+
+    flex-direction: column;
+
+
+    justify-content: center;
+
+
+    align-items: center;
+
+
+    text-align: center;
+
+
+    padding: 30px;
+
+
+}
+
+
+
+
+.success-content h1 {
+
+
+    font-size: 42px;
+
+
+    margin-bottom: 25px;
+
+
+}
+
+
+
+
+.success-content p {
+
+
+    font-size: 25px;
+
+
+    line-height: 1.5;
+
+
+    margin-bottom: 45px;
+
+
+}
+
+
+
+
+
+.success-content button {
+
+
+    width: 100%;
+
+
+    height: 60px;
+
+
+    border-radius: 20px;
+
+
+    border: none;
+
+
+    background: #111827;
+
+
+    color: white;
+
+
+    font-size: 20px;
+
+
+}
+
+
+
+
+
+
+/* Предупреждение */
+
+
+#warning {
+
+
+    position: fixed;
+
+
+    top: 20px;
+
+
+    left: 20px;
+
+
+    right: 20px;
+
+
+    background: #ff453a;
+
+
+    color: white;
+
+
+    padding: 20px;
+
+
+    border-radius: 18px;
+
+
+    font-size: 18px;
+
+
+    font-weight: 600;
+
+
+    z-index: 1000;
+
+
+    box-shadow:
+
+        0 10px 30px rgba(0,0,0,.25);
+
 
 }
