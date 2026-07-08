@@ -100,6 +100,26 @@ margin-bottom: 15px;
 }
 
 
+/* Кнопки управления */
+
+.checklist-actions {
+display: flex;
+gap: 12px;
+padding: 0 20px 15px;
+}
+
+.checklist-actions button {
+flex: 1;
+height: 50px;
+border: none;
+border-radius: 16px;
+background: white;
+font-size: 17px;
+font-weight: 600;
+box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+
 /* Предупреждение */
 
 #warning {
