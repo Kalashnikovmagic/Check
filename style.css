@@ -33,10 +33,11 @@ display:flex;
 #home-screen{
 justify-content:center;
 gap:20px;
-padding:20px;
+padding:20px 20px 40px;
 }
 
 .main-button{
+flex:1;
 width:100%;
 border-radius:24px;
 border:3px solid #d9ec38;
@@ -46,12 +47,9 @@ font-weight:700;
 color:#d9ec38;
 }
 
-.performance-button{
-flex:2;
-}
-
+.performance-button,
 .after-button{
-flex:0.6;
+flex:1;
 }
 
 .main-button:active{
