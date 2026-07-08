@@ -1,3 +1,6 @@
+document.addEventListener("DOMContentLoaded", () => {
+
+
 let currentMode = "before";
 let currentFormat = "micro";
 
@@ -5,41 +8,31 @@ let currentFormat = "micro";
 
 const checklists = {
 
-
     micro: {
-
 
         title: "Микромагия",
 
-
         categories: [
 
-
             {
-
                 name: "Одежда",
 
                 items: [
-
                     "Рубашка / футболка",
                     "Пиджак",
                     "Брюки",
                     "Туфли",
                     "Носки",
                     "Браслеты и кольца"
-
                 ]
 
             },
 
 
-
             {
-
                 name: "Микрофон",
 
                 items: [
-
                     "Зарядить батарейки",
                     "Передатчик",
                     "База",
@@ -47,19 +40,15 @@ const checklists = {
                     "Кабель XLR",
                     "Блок питания",
                     "Флешка"
-
                 ]
 
             },
 
 
-
             {
-
                 name: "Реквизит",
 
                 items: [
-
                     "Чемодан",
                     "Штатив",
                     "Колоды обычные",
@@ -68,16 +57,41 @@ const checklists = {
                     "MentalDie",
                     "Симпсоны",
                     "Leviosa"
-
                 ]
 
             }
 
-
         ]
 
-
     }
+
+};
+
+
+
+
+
+// -----------------------
+// Навигация
+// -----------------------
+
+
+window.openMode = function(mode) {
+
+
+    currentMode = mode;
+
+
+    document
+    .getElementById("mode-title")
+    .innerText =
+
+        mode === "before"
+        ? "На выступление"
+        : "После выступления";
+
+
+    showScreen("format-screen");
 
 
 };
@@ -86,12 +100,16 @@ const checklists = {
 
 
 
+window.goHome = function() {
+
+
+    showScreen("home-screen");
+
+
+};
 
 
 
-// --------------------------
-// Навигация
-// --------------------------
 
 
 
@@ -107,7 +125,6 @@ function showScreen(id) {
     });
 
 
-
     document
     .getElementById(id)
     .classList.add("active");
@@ -120,62 +137,17 @@ function showScreen(id) {
 
 
 
-function openMode(mode) {
 
 
-    currentMode = mode;
+// -----------------------
+// Открытие чеклиста
+// -----------------------
 
 
-
-    document
-    .getElementById("mode-title")
-    .innerText =
-
-        mode === "before"
-
-        ? "На выступление"
-
-        : "После выступления";
+window.openChecklist = function(format) {
 
 
-
-    showScreen("format-screen");
-
-
-}
-
-
-
-
-
-
-function goHome() {
-
-
-    showScreen("home-screen");
-
-
-}
-
-
-
-
-
-
-
-
-
-// --------------------------
-// Чеклист
-// --------------------------
-
-
-
-function openChecklist(format) {
-
-
-
-    if (!checklists[format]) {
+    if(!checklists[format]) {
 
 
         alert(
@@ -203,10 +175,10 @@ function openChecklist(format) {
     renderChecklist();
 
 
-
     showScreen("checklist-screen");
 
-}
+
+};
 
 
 
@@ -214,8 +186,7 @@ function openChecklist(format) {
 
 
 
-
-function getStorageKey() {
+function storageKey() {
 
 
     return (
@@ -239,18 +210,18 @@ function getStorageKey() {
 
 
 
+// -----------------------
+// Создание списка
+// -----------------------
+
 
 function renderChecklist() {
 
 
-
     const container =
-
-        document
-        .getElementById(
+        document.getElementById(
             "checklist-container"
         );
-
 
 
     container.innerHTML = "";
@@ -262,11 +233,10 @@ function renderChecklist() {
         JSON.parse(
 
             localStorage.getItem(
-                getStorageKey()
+                storageKey()
             )
 
         ) || {};
-
 
 
 
@@ -289,8 +259,6 @@ function renderChecklist() {
 
 
 
-
-
         const title =
             document.createElement(
                 "div"
@@ -301,11 +269,8 @@ function renderChecklist() {
             "category-title";
 
 
-
         title.innerText =
             "▼ " + category.name;
-
-
 
 
 
@@ -323,18 +288,14 @@ function renderChecklist() {
 
 
 
-
-
         category.items
         .forEach(item => {
-
 
 
             const row =
                 document.createElement(
                     "label"
                 );
-
 
 
             row.className =
@@ -344,32 +305,21 @@ function renderChecklist() {
 
             row.innerHTML = `
 
-
-                <input
-
+                <input 
                     type="checkbox"
-
                     data-item="${item}"
-
                     ${saved[item] ? "checked" : ""}
-
                 >
-
 
                 <span>${item}</span>
 
-
             `;
-
 
 
             items.appendChild(row);
 
 
-
         });
-
-
 
 
 
@@ -379,16 +329,14 @@ function renderChecklist() {
 
             items.style.display =
 
-                items.style.display === "none"
+            items.style.display === "none"
 
-                ? "block"
+            ? "block"
 
-                : "none";
+            : "none";
 
 
         };
-
-
 
 
 
@@ -397,14 +345,10 @@ function renderChecklist() {
         block.appendChild(items);
 
 
-
         container.appendChild(block);
 
 
-
     });
-
-
 
 
     updateProgress();
@@ -418,44 +362,34 @@ function renderChecklist() {
 
 
 
+// -----------------------
+// Сохранение
+// -----------------------
 
 
-// --------------------------
-// Сохранение галочек
-// --------------------------
-
-
-
-document
-.addEventListener(
+document.addEventListener(
 "change",
 event => {
 
 
-
-    if (
+    if(
 
         event.target.matches(
-
-        '#checklist-container input[type="checkbox"]'
-
+            "#checklist-container input"
         )
 
     ) {
 
 
+        let saved =
 
-        const saved =
+        JSON.parse(
 
-            JSON.parse(
+            localStorage.getItem(
+                storageKey()
+            )
 
-                localStorage.getItem(
-                    getStorageKey()
-                )
-
-            ) || {};
-
-
+        ) || {};
 
 
 
@@ -465,18 +399,13 @@ event => {
 
 
 
-
-
         localStorage.setItem(
 
-            getStorageKey(),
+            storageKey(),
 
             JSON.stringify(saved)
 
         );
-
-
-
 
 
         updateProgress();
@@ -485,9 +414,7 @@ event => {
     }
 
 
-}
-
-);
+});
 
 
 
@@ -495,25 +422,18 @@ event => {
 
 
 
-
-
-// --------------------------
+// -----------------------
 // Прогресс
-// --------------------------
-
+// -----------------------
 
 
 function updateProgress() {
 
 
-
     const checks =
-
         document
         .querySelectorAll(
-
-        '#checklist-container input[type="checkbox"]'
-
+            "#checklist-container input"
         );
 
 
@@ -525,8 +445,7 @@ function updateProgress() {
     checks.forEach(check => {
 
 
-
-        if(check.checked){
+        if(check.checked) {
 
             done++;
 
@@ -537,14 +456,11 @@ function updateProgress() {
 
 
 
-
     document
     .getElementById("progress")
     .innerText =
 
-
         `${done} / ${checks.length}`;
-
 
 
 }
@@ -555,12 +471,9 @@ function updateProgress() {
 
 
 
-
-
-// --------------------------
-// Кнопка ГОТОВО
-// --------------------------
-
+// -----------------------
+// Готово
+// -----------------------
 
 
 document
@@ -574,18 +487,13 @@ finishChecklist
 
 
 
-
 function finishChecklist() {
 
 
-
     const checks =
-
         document
         .querySelectorAll(
-
-        '#checklist-container input[type="checkbox"]'
-
+            "#checklist-container input"
         );
 
 
@@ -595,7 +503,6 @@ function finishChecklist() {
 
 
     checks.forEach(check => {
-
 
 
         if(!check.checked) {
@@ -618,15 +525,29 @@ function finishChecklist() {
     if(missed.length > 0) {
 
 
-
         showWarning(missed);
-
 
 
     }
 
     else {
 
+
+        document
+        .querySelector(".success-content h1")
+        .innerText =
+            "🎩 Отлично!";
+
+
+        document
+        .querySelector(".success-content p")
+        .innerHTML =
+
+            `
+            ${checklists[currentFormat].title}<br><br>
+            Ты всё собрал.<br>
+            Ничего не забыл.
+            `;
 
 
         showScreen(
@@ -645,21 +566,17 @@ function finishChecklist() {
 
 
 
-
 function showWarning(items) {
 
 
 
     const old =
-
-        document
-        .getElementById(
+        document.getElementById(
             "warning"
         );
 
 
-
-    if(old){
+    if(old) {
 
         old.remove();
 
@@ -670,12 +587,9 @@ function showWarning(items) {
 
 
     const warning =
-
-        document
-        .createElement(
+        document.createElement(
             "div"
         );
-
 
 
     warning.id =
@@ -683,32 +597,17 @@ function showWarning(items) {
 
 
 
+    warning.innerHTML =
 
-
-    warning.innerHTML = `
-
-
-        ⚠️ Ты что-то забыл:
-
-
-        <br><br>
-
+        `
+        ⚠️ Ты что-то забыл:<br><br>
 
         ${
-
             items
-            .map(
-                item =>
-                "• " + item
-            )
+            .map(item => "• " + item)
             .join("<br>")
-
         }
-
-
-    `;
-
-
+        `;
 
 
 
@@ -726,7 +625,7 @@ function showWarning(items) {
         warning.remove();
 
 
-    },5000);
+    },6000);
 
 
 
@@ -736,10 +635,7 @@ function showWarning(items) {
 
 
 
-
-
-
-
-// Старт
-
 showScreen("home-screen");
+
+
+});
