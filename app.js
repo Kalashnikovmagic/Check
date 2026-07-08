@@ -164,7 +164,6 @@ function renderChecklist() {
 
 
 
-
 document.addEventListener("change", event => {
 
     if (event.target.matches("#checklist-container input")) {
@@ -188,8 +187,6 @@ document.addEventListener("change", event => {
     }
 
 });
-
-
 
 
 
@@ -219,11 +216,6 @@ function updateProgress() {
 
 
 
-
-
-
-// Проверка категорий
-
 function updateCategories() {
 
     const categories =
@@ -249,20 +241,14 @@ function updateCategories() {
 
 
         if (allChecked) {
-
             category.classList.add("completed");
-
         } else {
-
             category.classList.remove("completed");
-
         }
 
     });
 
 }
-
-
 
 
 
@@ -282,7 +268,6 @@ function checkAll() {
     checks.forEach(check => {
 
         check.checked = true;
-
         saved[check.dataset.item] = true;
 
     });
@@ -304,8 +289,6 @@ function checkAll() {
 
 
 
-
-
 function resetAll() {
 
     const checks =
@@ -315,9 +298,7 @@ function resetAll() {
 
 
     checks.forEach(check => {
-
         check.checked = false;
-
     });
 
 
@@ -330,8 +311,6 @@ function resetAll() {
     updateCategories();
 
 }
-
-
 
 
 
@@ -351,11 +330,7 @@ function finishChecklist() {
     checks.forEach(check => {
 
         if (!check.checked) {
-
-            missed.push(
-                check.dataset.item
-            );
-
+            missed.push(check.dataset.item);
         }
 
     });
@@ -364,7 +339,6 @@ function finishChecklist() {
     if (missed.length > 0) {
 
         showWarning(missed);
-
         return;
 
     }
@@ -386,7 +360,6 @@ function finishChecklist() {
 
 
 
-
 function showWarning(items) {
 
     const warning =
@@ -402,7 +375,16 @@ function showWarning(items) {
         ${items.map(item => "• " + item).join("<br>")}
         `;
 
+
+    setTimeout(() => {
+
+        warning.style.display = "none";
+        warning.innerHTML = "";
+
+    }, 5000);
+
 }
+
 
 
 
@@ -414,7 +396,6 @@ function clearWarning() {
 
 
     warning.style.display = "none";
-
     warning.innerHTML = "";
 
 }
