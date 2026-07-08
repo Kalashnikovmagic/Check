@@ -7,7 +7,7 @@ padding:0;
 body{
 font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display",Arial,sans-serif;
 background:#312e2b;
-color:#262421;
+color:#010101;
 height:100vh;
 overflow:hidden;
 }
@@ -28,39 +28,48 @@ flex-direction:column;
 display:flex;
 }
 
+/* Главный экран */
+
 .main-button{
 width:100%;
 height:50%;
 border:none;
-color:#fff;
 font-size:24px;
 font-weight:700;
 }
 
 .performance-button{
-background:#769656;
+background:#010101;
+color:#d9ec38;
 }
 
 .after-button{
-background:#3c3a38;
+background:#010101;
+color:#afb6af;
 }
+
+/* Назад */
 
 .back-button{
 margin:12px;
 padding:8px 14px;
 border:none;
 border-radius:12px;
-background:#f0d9b5;
+background:#afb6af;
+color:#010101;
 font-size:15px;
-color:#262421;
 }
+
+/* Заголовки */
 
 h1{
 text-align:center;
 font-size:24px;
 margin:8px 15px 15px;
-color:#f0d9b5;
+color:#afb6af;
 }
+
+/* Форматы */
 
 .format-list{
 display:flex;
@@ -73,19 +82,23 @@ padding:15px;
 height:55px;
 border:none;
 border-radius:16px;
-background:#f0d9b5;
+background:#afb6af;
+color:#010101;
 font-size:19px;
 font-weight:600;
-color:#262421;
 }
+
+/* Прогресс */
 
 #progress{
 text-align:center;
 font-size:18px;
 font-weight:700;
 margin-bottom:10px;
-color:#f0d9b5;
+color:#afb6af;
 }
+
+/* Управление */
 
 .checklist-actions{
 display:flex;
@@ -98,11 +111,13 @@ flex:1;
 height:40px;
 border:none;
 border-radius:12px;
-background:#f0d9b5;
+background:#afb6af;
+color:#010101;
 font-size:14px;
 font-weight:600;
-color:#262421;
 }
+
+/* Уведомление */
 
 #warning{
 display:block;
@@ -111,15 +126,15 @@ top:20px;
 left:15px;
 right:15px;
 padding:12px 15px;
-background:#b33a3a;
-color:white;
+background:#d9ec38;
+color:#010101;
 border-radius:14px;
 font-size:15px;
-font-weight:600;
+font-weight:700;
 z-index:1000;
 transform:translateY(-120px);
 opacity:0;
-transition:.35s;
+transition:transform .35s ease,opacity .35s ease;
 }
 
 #warning.show{
@@ -132,6 +147,8 @@ transform:translateY(-120px);
 opacity:0;
 }
 
+/* Чеклист */
+
 #checklist-container{
 flex:1;
 overflow-y:auto;
@@ -139,7 +156,8 @@ padding:0 15px 90px;
 }
 
 .category{
-background:#f0d9b5;
+background:#afb6af;
+border:1px solid #010101;
 border-radius:14px;
 margin-bottom:10px;
 overflow:hidden;
@@ -147,12 +165,12 @@ transition:.3s;
 }
 
 .category.completed{
-background:#769656;
-color:white;
+background:#d9ec38;
+color:#010101;
 }
 
 .category.completed .category-items{
-background:#769656;
+background:#d9ec38;
 }
 
 .category-title{
@@ -176,8 +194,10 @@ font-size:16px;
 .item input{
 width:20px;
 height:20px;
-accent-color:#769656;
+accent-color:#d9ec38;
 }
+
+/* Главная кнопка */
 
 #finish-button{
 position:fixed;
@@ -187,11 +207,14 @@ right:15px;
 height:50px;
 border:none;
 border-radius:16px;
-background:#769656;
-color:white;
+background:#010101;
+color:#d9ec38;
+border:2px solid #d9ec38;
 font-size:18px;
 font-weight:700;
 }
+
+/* Успех */
 
 .success-content{
 height:100%;
@@ -206,13 +229,14 @@ padding:20px;
 .success-content h1{
 font-size:34px;
 margin-bottom:20px;
+color:#d9ec38;
 }
 
 .success-content p{
 font-size:20px;
 line-height:1.4;
 margin-bottom:30px;
-color:#f0d9b5;
+color:#afb6af;
 }
 
 .success-content button{
@@ -220,7 +244,8 @@ width:100%;
 height:50px;
 border:none;
 border-radius:16px;
-background:#769656;
-color:white;
+background:#010101;
+color:#d9ec38;
+border:2px solid #d9ec38;
 font-size:18px;
 }
