@@ -1,113 +1,95 @@
-* {
-box-sizing: border-box;
-margin: 0;
-padding: 0;
+*{
+box-sizing:border-box;
+margin:0;
+padding:0;
 }
 
-body {
-font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", Arial, sans-serif;
-background: #f2f2f7;
-color: #111;
-height: 100vh;
-overflow: hidden;
+body{
+font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display",Arial,sans-serif;
+background:#f2f2f7;
+color:#111;
+height:100vh;
+overflow:hidden;
 }
 
-#app {
-width: 100%;
-height: 100%;
+#app{
+width:100%;
+height:100%;
 }
 
-.screen {
-display: none;
-width: 100%;
-height: 100%;
-flex-direction: column;
+.screen{
+display:none;
+width:100%;
+height:100%;
+flex-direction:column;
 }
 
-.screen.active {
-display: flex;
+.screen.active{
+display:flex;
 }
 
-
-/* Главный экран */
-
-.main-button {
-width: 100%;
-height: 50%;
-border: none;
-color: white;
-font-size: 24px;
-font-weight: 700;
+.main-button{
+width:100%;
+height:50%;
+border:none;
+color:white;
+font-size:24px;
+font-weight:700;
 }
 
-.performance-button {
-background: #111827;
+.performance-button{
+background:#111827;
 }
 
-.after-button {
-background: #374151;
+.after-button{
+background:#374151;
 }
 
-
-/* Назад */
-
-.back-button {
-margin: 12px;
-padding: 8px 14px;
-border: none;
-border-radius: 12px;
-background: white;
-font-size: 15px;
+.back-button{
+margin:12px;
+padding:8px 14px;
+border:none;
+border-radius:12px;
+background:white;
+font-size:15px;
 }
 
-
-/* Заголовки */
-
-h1 {
-text-align: center;
-font-size: 24px;
-margin: 8px 15px 15px;
+h1{
+text-align:center;
+font-size:24px;
+margin:8px 15px 15px;
 }
 
-
-/* Форматы */
-
-.format-list {
-display: flex;
-flex-direction: column;
-gap: 10px;
-padding: 15px;
+.format-list{
+display:flex;
+flex-direction:column;
+gap:10px;
+padding:15px;
 }
 
-.format-list button {
-height: 55px;
-border: none;
-border-radius: 16px;
-background: white;
-font-size: 19px;
-font-weight: 600;
+.format-list button{
+height:55px;
+border:none;
+border-radius:16px;
+background:white;
+font-size:19px;
+font-weight:600;
 }
 
-
-/* Прогресс */
-
-#progress {
-text-align: center;
-font-size: 18px;
-font-weight: 700;
-margin-bottom: 10px;
+#progress{
+text-align:center;
+font-size:18px;
+font-weight:700;
+margin-bottom:10px;
 }
 
-
-/* Кнопки управления */
-
-.checklist-actions {
+.checklist-actions{
 display:flex;
 gap:10px;
 padding:0 15px 10px;
 }
 
-.checklist-actions button {
+.checklist-actions button{
 flex:1;
 height:40px;
 border:none;
@@ -117,31 +99,41 @@ font-size:14px;
 font-weight:600;
 }
 
-
-/* Предупреждение */
-
-#warning {
-display:none;
-margin:0 15px 10px;
-padding:12px;
+#warning{
+display:block;
+position:fixed;
+top:20px;
+left:15px;
+right:15px;
+padding:12px 15px;
 background:#ff453a;
 color:white;
 border-radius:14px;
 font-size:15px;
 font-weight:600;
+z-index:1000;
+transform:translateY(-120px);
+opacity:0;
+transition:transform .35s ease,opacity .35s ease;
 }
 
+#warning.show{
+transform:translateY(0);
+opacity:1;
+}
 
-/* Чеклист */
+#warning.hide{
+transform:translateY(-120px);
+opacity:0;
+}
 
-#checklist-container {
+#checklist-container{
 flex:1;
 overflow-y:auto;
 padding:0 15px 90px;
 }
 
-
-.category {
+.category{
 background:white;
 border-radius:14px;
 margin-bottom:10px;
@@ -149,31 +141,26 @@ overflow:hidden;
 transition:.3s;
 }
 
-
-.category.completed {
+.category.completed{
 background:#34c759;
 color:white;
 }
 
-
-.category.completed .category-items {
+.category.completed .category-items{
 background:#34c759;
 }
 
-
-.category-title {
+.category-title{
 padding:12px;
 font-size:18px;
 font-weight:700;
 }
 
-
-.category-items {
+.category-items{
 padding:0 12px 8px;
 }
 
-
-.item {
+.item{
 display:flex;
 align-items:center;
 gap:10px;
@@ -181,16 +168,12 @@ padding:8px 0;
 font-size:16px;
 }
 
-
-.item input {
+.item input{
 width:20px;
 height:20px;
 }
 
-
-/* Готово */
-
-#finish-button {
+#finish-button{
 position:fixed;
 bottom:12px;
 left:15px;
@@ -204,10 +187,7 @@ font-size:18px;
 font-weight:700;
 }
 
-
-/* Успех */
-
-.success-content {
+.success-content{
 height:100%;
 display:flex;
 flex-direction:column;
@@ -217,21 +197,18 @@ text-align:center;
 padding:20px;
 }
 
-
-.success-content h1 {
+.success-content h1{
 font-size:34px;
 margin-bottom:20px;
 }
 
-
-.success-content p {
+.success-content p{
 font-size:20px;
 line-height:1.4;
 margin-bottom:30px;
 }
 
-
-.success-content button {
+.success-content button{
 width:100%;
 height:50px;
 border:none;
