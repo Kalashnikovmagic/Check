@@ -9,7 +9,9 @@ font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display",Arial,sans-serif;
 background:#010101;
 color:#010101;
 height:100vh;
+height:100dvh;
 overflow:hidden;
+padding-top:env(safe-area-inset-top);
 }
 
 #app{
@@ -59,7 +61,7 @@ transform:scale(.98);
 /* Кнопка назад */
 
 .back-button{
-margin:12px;
+margin:calc(12px + env(safe-area-inset-top)) 12px 12px;
 padding:8px 14px;
 border:none;
 border-radius:14px;
@@ -214,7 +216,7 @@ accent-color:#d9ec38;
 
 #finish-button{
 position:fixed;
-bottom:12px;
+bottom:calc(12px + env(safe-area-inset-bottom));
 left:15px;
 right:15px;
 height:52px;
