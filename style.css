@@ -28,8 +28,6 @@ flex-direction:column;
 display:flex;
 }
 
-/* Главный экран */
-
 .main-button{
 width:100%;
 height:50%;
@@ -48,8 +46,6 @@ background:#010101;
 color:#afb6af;
 }
 
-/* Назад */
-
 .back-button{
 margin:12px;
 padding:8px 14px;
@@ -60,16 +56,12 @@ color:#010101;
 font-size:15px;
 }
 
-/* Заголовки */
-
 h1{
 text-align:center;
 font-size:24px;
 margin:8px 15px 15px;
 color:#afb6af;
 }
-
-/* Форматы */
 
 .format-list{
 display:flex;
@@ -88,8 +80,6 @@ font-size:19px;
 font-weight:600;
 }
 
-/* Прогресс */
-
 #progress{
 text-align:center;
 font-size:18px;
@@ -97,8 +87,6 @@ font-weight:700;
 margin-bottom:10px;
 color:#afb6af;
 }
-
-/* Управление */
 
 .checklist-actions{
 display:flex;
@@ -117,8 +105,6 @@ font-size:14px;
 font-weight:600;
 }
 
-/* Уведомление */
-
 #warning{
 display:block;
 position:fixed;
@@ -132,6 +118,7 @@ border-radius:14px;
 font-size:15px;
 font-weight:700;
 z-index:1000;
+pointer-events:none;
 transform:translateY(-120px);
 opacity:0;
 transition:transform .35s ease,opacity .35s ease;
@@ -146,8 +133,6 @@ opacity:1;
 transform:translateY(-120px);
 opacity:0;
 }
-
-/* Чеклист */
 
 #checklist-container{
 flex:1;
@@ -197,8 +182,6 @@ height:20px;
 accent-color:#d9ec38;
 }
 
-/* Главная кнопка */
-
 #finish-button{
 position:fixed;
 bottom:12px;
@@ -213,8 +196,6 @@ border:2px solid #d9ec38;
 font-size:18px;
 font-weight:700;
 }
-
-/* Успех */
 
 .success-content{
 height:100%;
