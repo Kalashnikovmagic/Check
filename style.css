@@ -37,7 +37,6 @@ padding:20px;
 }
 
 .main-button{
-flex:1;
 width:100%;
 border-radius:24px;
 border:3px solid #d9ec38;
@@ -47,14 +46,16 @@ font-weight:700;
 color:#d9ec38;
 }
 
-.main-button:active{
-transform:scale(.98);
+.performance-button{
+flex:2;
 }
 
-.performance-button,
 .after-button{
-background:#010101;
-color:#d9ec38;
+flex:0.6;
+}
+
+.main-button:active{
+transform:scale(.98);
 }
 
 /* Кнопка назад */
