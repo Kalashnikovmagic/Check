@@ -9,7 +9,12 @@
     <link rel="stylesheet" href="style.css">
 
     <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#000000">
+
+    <meta name="theme-color" content="#111827">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Magic">
+
 </head>
 
 <body>
@@ -20,17 +25,17 @@
     <section id="home-screen" class="screen active">
 
         <button class="main-button performance-button" onclick="openMode('before')">
-            <span>На выступление</span>
+            На выступление
         </button>
 
         <button class="main-button after-button" onclick="openMode('after')">
-            <span>После выступления</span>
+            После выступления
         </button>
 
     </section>
 
 
-    <!-- Выбор формата -->
+    <!-- Выбор режима -->
     <section id="format-screen" class="screen">
 
         <button class="back-button" onclick="goHome()">
@@ -38,6 +43,7 @@
         </button>
 
         <h1 id="mode-title"></h1>
+
 
         <div class="format-list">
 
@@ -69,23 +75,22 @@
             ← Назад
         </button>
 
-        <h1 id="format-title">
-            Микромагия
-        </h1>
+
+        <h1 id="format-title"></h1>
+
 
         <div id="progress">
             0 / 0
         </div>
 
 
-        <div id="checklist-container">
-
-        </div>
+        <div id="checklist-container"></div>
 
 
         <button id="finish-button">
             Готово
         </button>
+
 
     </section>
 
@@ -94,6 +99,30 @@
 
 
 <script src="app.js"></script>
+
+
+<!-- Регистрация PWA -->
+
+<script>
+
+if ("serviceWorker" in navigator) {
+
+    window.addEventListener("load", () => {
+
+        navigator.serviceWorker.register("service-worker.js")
+        .then(() => {
+            console.log("PWA готово");
+        })
+        .catch(error => {
+            console.log("Ошибка PWA:", error);
+        });
+
+    });
+
+}
+
+</script>
+
 
 </body>
 </html>
