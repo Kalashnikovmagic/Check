@@ -73,6 +73,7 @@ function goHome() {
 
 
 function openChecklist(format) {
+
     if (!checklists[format]) {
         alert("Этот формат пока в разработке");
         return;
@@ -96,11 +97,15 @@ function getStorageKey() {
 
 
 function renderChecklist() {
-    const container = document.getElementById("checklist-container");
+
+    const container =
+        document.getElementById("checklist-container");
+
     container.innerHTML = "";
 
     const saved =
         JSON.parse(localStorage.getItem(getStorageKey())) || {};
+
 
     checklists[currentFormat].categories.forEach(category => {
 
@@ -114,12 +119,14 @@ function renderChecklist() {
         const items = document.createElement("div");
         items.className = "category-items";
 
+
         title.onclick = () => {
             items.style.display =
                 items.style.display === "none"
                     ? "block"
                     : "none";
         };
+
 
         category.items.forEach(item => {
 
@@ -136,15 +143,21 @@ function renderChecklist() {
             `;
 
             items.appendChild(row);
+
         });
+
 
         block.appendChild(title);
         block.appendChild(items);
+
         container.appendChild(block);
+
     });
+
 
     updateProgress();
 }
+
 
 
 document.addEventListener("change", event => {
@@ -164,7 +177,9 @@ document.addEventListener("change", event => {
 
         updateProgress();
     }
+
 });
+
 
 
 function updateProgress() {
@@ -177,14 +192,83 @@ function updateProgress() {
     let completed = 0;
 
     checks.forEach(check => {
+
         if (check.checked) {
             completed++;
         }
+
     });
+
 
     document.getElementById("progress").innerText =
         `${completed} / ${checks.length}`;
 }
+
+
+
+
+// Отметить всё
+
+function checkAll() {
+
+    const checks =
+        document.querySelectorAll(
+            "#checklist-container input"
+        );
+
+    const saved = {};
+
+
+    checks.forEach(check => {
+
+        check.checked = true;
+
+        saved[check.dataset.item] = true;
+
+    });
+
+
+    localStorage.setItem(
+        getStorageKey(),
+        JSON.stringify(saved)
+    );
+
+
+    updateProgress();
+    clearWarning();
+}
+
+
+
+
+// Сбросить всё
+
+function resetAll() {
+
+    const checks =
+        document.querySelectorAll(
+            "#checklist-container input"
+        );
+
+
+    checks.forEach(check => {
+
+        check.checked = false;
+
+    });
+
+
+    localStorage.removeItem(
+        getStorageKey()
+    );
+
+
+    updateProgress();
+
+}
+
+
+
 
 
 function finishChecklist() {
@@ -195,6 +279,7 @@ function finishChecklist() {
         );
 
     const missed = [];
+
 
     checks.forEach(check => {
 
@@ -213,14 +298,19 @@ function finishChecklist() {
     }
 
 
-    document.getElementById("success-text").innerHTML = `
+    document.getElementById("success-text").innerHTML =
+        `
         ${checklists[currentFormat].title}<br><br>
         Ты всё собрал.<br>
         Ничего не забыл.
-    `;
+        `;
+
 
     showScreen("success-screen");
+
 }
+
+
 
 
 function showWarning(items) {
@@ -228,20 +318,25 @@ function showWarning(items) {
     const warning =
         document.getElementById("warning");
 
+
     warning.style.display = "block";
 
-    warning.innerHTML = `
+
+    warning.innerHTML =
+        `
         ⚠️ Ты что-то забыл:<br><br>
         ${items.map(item => "• " + item).join("<br>")}
-    `;
+        `;
 
 }
+
 
 
 function clearWarning() {
 
     const warning =
         document.getElementById("warning");
+
 
     warning.style.display = "none";
     warning.innerHTML = "";
