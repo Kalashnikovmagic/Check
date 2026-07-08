@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+
 <title>Magic Checklist</title>
 
 <link rel="stylesheet" href="style.css">
@@ -18,6 +19,7 @@
 <div id="app">
 
 <section id="home-screen" class="screen active">
+
 <button class="main-button performance-button" onclick="openMode('before')">
 На выступление
 </button>
@@ -25,6 +27,7 @@
 <button class="main-button after-button" onclick="openMode('after')">
 После выступления
 </button>
+
 </section>
 
 
@@ -71,13 +74,30 @@
 0 / 0
 </div>
 
+
+<div class="checklist-actions">
+
+<button onclick="checkAll()">
+Отметить всё
+</button>
+
+<button onclick="resetAll()">
+Сбросить всё
+</button>
+
+</div>
+
+
 <div id="warning"></div>
 
+
 <div id="checklist-container"></div>
+
 
 <button id="finish-button" onclick="finishChecklist()">
 Готово
 </button>
+
 
 </section>
 
@@ -95,6 +115,7 @@
 Ничего не забыл.
 </p>
 
+
 <button onclick="goHome()">
 Вернуться на главный экран
 </button>
@@ -102,6 +123,7 @@
 </div>
 
 </section>
+
 
 </div>
 
