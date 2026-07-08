@@ -2,8 +2,6 @@ let currentMode = "before";
 let currentFormat = "micro";
 
 
-// Данные чеклиста
-
 const checklists = {
 
     micro: {
@@ -24,7 +22,6 @@ const checklists = {
                 ]
             },
 
-
             {
                 name: "Микрофон",
                 items: [
@@ -37,7 +34,6 @@ const checklists = {
                     "Флешка"
                 ]
             },
-
 
             {
                 name: "Реквизит",
@@ -61,28 +57,30 @@ const checklists = {
 
 
 
-// Переходы между экранами
+// ----------------------------
+// Экраны
+// ----------------------------
+
 
 function showScreen(id){
 
     document.querySelectorAll(".screen")
-        .forEach(screen => {
-            screen.classList.remove("active");
-        });
+    .forEach(screen=>{
+        screen.classList.remove("active");
+    });
 
 
     document.getElementById(id)
-        .classList.add("active");
+    .classList.add("active");
 
 }
 
 
 
-// Выбор режима
-
 function openMode(mode){
 
     currentMode = mode;
+
 
     document.getElementById("mode-title").innerText =
         mode === "before"
@@ -96,8 +94,6 @@ function openMode(mode){
 
 
 
-// Домой
-
 function goHome(){
 
     showScreen("home-screen");
@@ -106,12 +102,13 @@ function goHome(){
 
 
 
-// Открытие чеклиста
+
+// ----------------------------
+// Чеклист
+// ----------------------------
+
 
 function openChecklist(format){
-
-    currentFormat = format;
-
 
     if(!checklists[format]){
 
@@ -120,6 +117,9 @@ function openChecklist(format){
         return;
 
     }
+
+
+    currentFormat = format;
 
 
     document.getElementById("format-title").innerText =
@@ -135,7 +135,15 @@ function openChecklist(format){
 
 
 
-// Создание списка
+
+function getStorageKey(){
+
+    return `magic_${currentMode}_${currentFormat}`;
+
+}
+
+
+
 
 function renderChecklist(){
 
@@ -146,76 +154,99 @@ function renderChecklist(){
     container.innerHTML = "";
 
 
+    const saved =
+        JSON.parse(
+            localStorage.getItem(getStorageKey())
+        ) || {};
+
+
+
     checklists[currentFormat]
-        .categories
-        .forEach((category,index)=>{
+    .categories
+    .forEach((category)=>{
 
 
-            const block = document.createElement("div");
+        const block =
+            document.createElement("div");
 
-            block.className = "category";
-
-
-            const title =
-                document.createElement("div");
-
-            title.className = "category-title";
-
-            title.innerText =
-                "▼ " + category.name;
+        block.className = "category";
 
 
-            const items =
-                document.createElement("div");
 
-            items.className = "category-items";
-
-
-            category.items.forEach(item=>{
+        const title =
+            document.createElement("div");
 
 
-                const row =
-                    document.createElement("label");
+        title.className = "category-title";
+
+        title.innerText =
+            "▼ " + category.name;
 
 
-                row.className = "item";
+
+        const items =
+            document.createElement("div");
+
+        items.className = "category-items";
 
 
-                row.innerHTML = `
 
-                <input type="checkbox">
+        category.items.forEach(item=>{
+
+
+            const row =
+                document.createElement("label");
+
+
+            row.className = "item";
+
+
+            const checked =
+                saved[item] ? "checked" : "";
+
+
+
+            row.innerHTML = `
+
+                <input 
+                    type="checkbox"
+                    ${checked}
+                    data-item="${item}"
+                >
 
                 <span>${item}</span>
 
-                `;
+            `;
 
 
-                items.appendChild(row);
 
-
-            });
-
-
-            title.onclick = ()=>{
-
-                items.style.display =
-                    items.style.display === "none"
-                    ? "block"
-                    : "none";
-
-            };
-
-
-            block.appendChild(title);
-
-            block.appendChild(items);
-
-
-            container.appendChild(block);
+            items.appendChild(row);
 
 
         });
 
+
+
+        title.onclick = ()=>{
+
+            items.style.display =
+                items.style.display === "none"
+                ? "block"
+                : "none";
+
+        };
+
+
+
+        block.appendChild(title);
+
+        block.appendChild(items);
+
+
+        container.appendChild(block);
+
+
+    });
 
 
     updateProgress();
@@ -224,13 +255,58 @@ function renderChecklist(){
 
 
 
-// Подсчёт прогресса
+// ----------------------------
+// Сохранение
+// ----------------------------
+
+
+document.addEventListener(
+"change",
+function(e){
+
+
+    if(
+        e.target.matches(
+        '#checklist-container input[type="checkbox"]'
+        )
+    ){
+
+
+        const saved =
+            JSON.parse(
+                localStorage.getItem(getStorageKey())
+            ) || {};
+
+
+
+        saved[e.target.dataset.item] =
+            e.target.checked;
+
+
+
+        localStorage.setItem(
+            getStorageKey(),
+            JSON.stringify(saved)
+        );
+
+
+
+        updateProgress();
+
+    }
+
+});
+
+
+
+
 
 function updateProgress(){
 
+
     const checks =
         document.querySelectorAll(
-            '#checklist-container input[type="checkbox"]'
+        '#checklist-container input[type="checkbox"]'
         );
 
 
@@ -246,34 +322,19 @@ function updateProgress(){
     });
 
 
-    document.getElementById("progress").innerText =
-        `${done} / ${checks.length}`;
+
+    document.getElementById("progress")
+    .innerText =
+    `${done} / ${checks.length}`;
 
 }
 
 
 
-// Следим за галочками
 
-document.addEventListener(
-    "change",
-    function(e){
-
-        if(
-            e.target.matches(
-                '#checklist-container input[type="checkbox"]'
-            )
-        ){
-
-            updateProgress();
-
-        }
-
-    }
-);
-
-
-
+// ----------------------------
 // Старт
+// ----------------------------
+
 
 showScreen("home-screen");
