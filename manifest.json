@@ -4,10 +4,9 @@
   "description": "Чеклист подготовки фокусника к выступлению",
   "start_url": "./index.html",
   "display": "standalone",
-  "background_color": "#f2f2f7",
-  "theme_color": "#111827",
+  "background_color": "#010101",
+  "theme_color": "#010101",
   "orientation": "portrait",
-
   "icons": [
     {
       "src": "icon-192.png",
